@@ -1,6 +1,7 @@
 import { Upload, FileText, LogOut, Loader2, ChevronDown, BrainCircuit, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import.meta.env.VITE_API_URL;
 
 interface AnalysisResult {
   atsScore: number;
@@ -34,7 +35,8 @@ export default function Dashboard() {
 
   const fetchResumeHistory = async (token: string) => {
     try {
-      const res = await fetch("http://localhost:8080/api/resume/my-resumes", {
+     // ✅ Replace with
+const res = await fetch(`${import.meta.env.VITE_API_URL}/api/resume/my-resumes`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -68,7 +70,7 @@ export default function Dashboard() {
       const formData = new FormData();
       formData.append("file", file);
 
-      const uploadRes = await fetch("http://localhost:8080/api/resume/upload", {
+      const uploadRes = await fetch(`${import.meta.env.VITE_API_URL}/api/resume/upload`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
@@ -82,8 +84,8 @@ export default function Dashboard() {
       setUploadStep("analyzing");
       setAnalyzing(true);
 
-      const analyzeRes = await fetch(
-        `http://localhost:8080/api/resume/analyze/${uploadedResume.id}`,
+const analyzeRes = await fetch(
+  `${import.meta.env.VITE_API_URL}/api/resume/analyze/${uploadedResume.id}`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
@@ -197,7 +199,7 @@ export default function Dashboard() {
                   onClick={() => { setDropdownOpen(false); navigate("/my-resumes"); }}
                   className="sm:hidden w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/10 transition-all"
                 >
-                  📋 History
+                   History
                 </button>
                 <button
                   onClick={handleLogout}

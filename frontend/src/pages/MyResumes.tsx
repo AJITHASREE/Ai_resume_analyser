@@ -35,7 +35,7 @@ export default function MyResumes() {
 
   const fetchMyResumes = async (token: string) => {
     try {
-      const res = await fetch("http://localhost:8080/api/resume/my-resumes", {
+      const res = await fetch("${import.meta.env.VITE_API_URL}/api/resume/my-resumes", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Failed to fetch resumes.");

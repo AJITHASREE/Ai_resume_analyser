@@ -19,7 +19,7 @@ const handleLogin = async () => {
   try {
 
     const response = await fetch(
-      "http://localhost:8080/api/auth/login",
+      "${import.meta.env.VITE_API_URL}/api/auth/login",
       {
         method: "POST",
         headers: {
@@ -146,7 +146,7 @@ const handleLogin = async () => {
 
 {/* Google Sign In */}
 <button
-  onClick={() => window.location.href = "http://localhost:8080/oauth2/authorization/google"}
+  onClick={() => window.location.href = "${import.meta.env.VITE_API_URL}/oauth2/authorization/google"}
   className="w-full flex items-center justify-center gap-3 bg-white text-gray-900 hover:bg-gray-100 transition-all py-4 rounded-2xl font-semibold text-base"
 >
   <img
