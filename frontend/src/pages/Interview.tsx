@@ -30,7 +30,7 @@ export default function Interview() {
 
   const fetchLatestResume = async (token: string) => {
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/api/resume/latest", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/resume/latest`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("No resume found. Please upload a resume first.");
