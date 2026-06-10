@@ -7,4 +7,4 @@ RUN ./mvnw dependency:go-offline
 COPY src ./src
 RUN ./mvnw clean install -DskipTests
 EXPOSE 8080
-CMD ["java", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-Xmx300m", "-Xms100m", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
