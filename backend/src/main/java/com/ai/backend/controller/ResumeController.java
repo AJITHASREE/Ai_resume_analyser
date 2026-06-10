@@ -16,7 +16,10 @@ import java.util.Map;  // ← add this
 
 @RestController
 @RequestMapping("/api/resume")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "http://localhost:5173",
+    "https://ai-resume-analyser-six-silk.vercel.app"
+})
 public class ResumeController {
 
     @Autowired
@@ -72,7 +75,8 @@ public class ResumeController {
             com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
             Map result = mapper.readValue(analysis, Map.class);
 
-            int atsScore = ((Number) result.get("atsScore")).intValue();
+          Number atsScoreNum = (Number) result.get("atsScore");
+int atsScore = atsScoreNum != null ? atsScoreNum.intValue() : 0;
             resume.setAtsScore(atsScore);
 
             // ✅ Save the full analysis as JSON strings

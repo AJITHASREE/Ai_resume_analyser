@@ -17,7 +17,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "http://localhost:5173",
+    "https://ai-resume-analyser-six-silk.vercel.app"
+})
 public class AuthController {
 
     @Autowired
@@ -103,7 +106,7 @@ public class AuthController {
         resetToken.setExpiryTime(LocalDateTime.now().plusMinutes(30));
         resetRepo.save(resetToken);
 
-        String resetLink = "http://localhost:5173/reset-password?token=" + token;
+       String resetLink = "https://ai-resume-analyser-six-silk.vercel.app/reset-password?token=" + token;
         emailService.sendResetEmail(email, resetLink);
 
         return "Reset link sent to email";
