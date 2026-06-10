@@ -53,9 +53,9 @@ public class GoogleOAuthSuccessHandler implements AuthenticationSuccessHandler {
         String token = JwtUtil.generateToken(email);
 
         // ✅ Redirect to React frontend with token
-        response.sendRedirect("https://ai-resume-analyser-six-silk.vercel.app/oauth2/callback?token=" + token);
+     response.sendRedirect("https://ai-resume-analyser-six-silk.vercel.app/oauth2/callback?token=" + token);
+    }
 }
-
 
 
 
