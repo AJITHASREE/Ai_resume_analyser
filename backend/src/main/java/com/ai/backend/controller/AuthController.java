@@ -106,7 +106,7 @@ public class AuthController {
         resetToken.setExpiryTime(LocalDateTime.now().plusMinutes(30));
         resetRepo.save(resetToken);
 
-       String resetLink = "https://ai-resume-analyser-six-silk.vercel.app/reset-password?token=" + token;
+       String resetlink = "https://ai-resume-analyser-six-silk.vercel.app/reset-password?token=" + token;
         emailService.sendResetEmail(email, resetLink);
 
         return "Reset link sent to email";
