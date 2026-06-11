@@ -92,8 +92,7 @@ public class AuthController {
     }
 
     // FORGOT PASSWORD
-  // FORGOT PASSWORD
-@PostMapping("/forgot-password")
+  @PostMapping("/forgot-password")
 public String forgotPassword(@RequestParam String email) {
     Optional<User> userOpt = userRepository.findByEmail(email);
     if (userOpt.isEmpty()) {
@@ -107,13 +106,17 @@ public String forgotPassword(@RequestParam String email) {
     resetToken.setExpiryTime(LocalDateTime.now().plusMinutes(30));
     resetRepo.save(resetToken);
 
-    // ✅ FIXED: Changed 'resetlink' to 'resetLink' (camelCase)
     String resetLink = "https://ai-resume-analyser-six-silk.vercel.app/reset-password?token=" + token;
-    emailService.sendResetEmail(email, resetLink);
-
-    return "Reset link sent to email";
+    
+    try {
+        emailService.sendResetEmail(email, resetLink);
+        return "Reset link sent to email";
+    } catch (Exception e) {
+        System.out.println("Email Error: " + e.getMessage());
+        e.printStackTrace();
+        return "Error sending email: " + e.getMessage();
+    }
 }
-
     // RESET PASSWORD
     @PostMapping("/reset-password")
     public String resetPassword(@RequestParam String token, @RequestParam String newPassword) {

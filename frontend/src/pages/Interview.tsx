@@ -42,17 +42,36 @@ export default function Interview() {
     }
   };
 
-  const fetchQuestions = async (token: string, resumeId: string) => {
+const fetchQuestions = async (token: string, resumeId: string) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/resume/interview/${resumeId}`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });
+
       if (!res.ok) throw new Error("Failed to fetch questions.");
+
       const text = await res.text();
-      setData(JSON.parse(text));
+
+      // ✅ Clean markdown fences
+      const clean = text
+        .replaceAll("```json", "")
+        .replaceAll("```", "")
+        .trim();
+
+      const parsed = JSON.parse(clean);
+
+      // ✅ Check correct format
+      if (parsed.technical && parsed.hr && parsed.behavioral) {
+        setData(parsed);
+      } else if (parsed.error) {
+        throw new Error(parsed.error);
+      } else {
+        throw new Error("AI returned unexpected format. Please try again.");
+      }
+
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -70,7 +89,7 @@ export default function Interview() {
     { key: "behavioral", label: "Behavioral", emoji: "🧠" },
   ];
 
-  const currentQuestions = data ? data[activeTab as keyof InterviewData] : [];
+  const currentQuestions = data?.[activeTab as keyof InterviewData] ?? [];
 
   return (
     <div className="min-h-screen bg-[#070B1A] text-white p-4 md:p-6">
