@@ -97,17 +97,18 @@ const analyzeRes = await fetch(
       // ✅ Parse the resume object returned from backend
       const resumeData = await analyzeRes.json();
 
-  const analysisJson: AnalysisResult = {
-    atsScore: resumeData.atsScore,
-    missingKeywords: typeof resumeData.missingKeywords === "string"
-      ? JSON.parse(resumeData.missingKeywords || "[]")
-      : resumeData.missingKeywords || [],
-    skillGaps: typeof resumeData.skillGaps === "string"
-      ? JSON.parse(resumeData.skillGaps || "[]")
-      : resumeData.skillGaps || [],
-    suggestions: typeof resumeData.suggestions === "string"
-      ? JSON.parse(resumeData.suggestions || "[]")
-      : resumeData.suggestions || [],
+ const safeParse = (value: any) => {
+  if (!value || value === 'null') return [];
+  if (Array.isArray(value)) return value;
+  try { return JSON.parse(value) || []; } 
+  catch { return []; }
+};
+
+const analysisJson: AnalysisResult = {
+  atsScore: resumeData.atsScore || 0,
+  missingKeywords: safeParse(resumeData.missingKeywords),
+  skillGaps: safeParse(resumeData.skillGaps),
+  suggestions: safeParse(resumeData.suggestions),
 };
 
 // Only reject if Gemini explicitly said it's not a resume
