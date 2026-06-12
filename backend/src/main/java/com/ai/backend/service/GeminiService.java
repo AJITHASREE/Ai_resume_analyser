@@ -67,12 +67,23 @@ public class GeminiService {
             Map firstPart = (Map) parts.get(0);
             String rawText = (String) firstPart.get("text");
 
+            // ✅ DEBUG LOG ADDED HERE (correct method)
+            System.out.println("=== GEMINI RAW RESPONSE ===");
+            System.out.println(rawText);
+            System.out.println("=== END GEMINI RESPONSE ===");
+
             return rawText.replaceAll("```json\\n?", "").replaceAll("```", "").trim();
 
         } catch (Exception e) {
-            return "{\"error\": \"AI analysis failed: " + e.getMessage() + "\"}";
+            // ✅ DEBUG ERROR LOG ADDED HERE
+            System.out.println("=== GEMINI ERROR ===");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("=== END GEMINI ERROR ===");
+            return "{\"atsScore\": 0, \"missingKeywords\": [], \"skillGaps\": [], \"suggestions\": [], \"error\": \"" + e.getMessage() + "\"}";
         }
     }
+
     // ✅ Method 3: Check if PDF is a resume
     public boolean isResume(String extractedText) {
 
@@ -111,7 +122,7 @@ public class GeminiService {
             return answer.trim().toLowerCase().contains("yes");
 
         } catch (Exception e) {
-            return true; // if check fails, allow it through
+            return true;
         }
     }
 
