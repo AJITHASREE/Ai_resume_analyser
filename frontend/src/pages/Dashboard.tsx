@@ -97,23 +97,30 @@ const analyzeRes = await fetch(
       // ✅ Parse the resume object returned from backend
       const resumeData = await analyzeRes.json();
 
-      // ✅ Build analysis from the saved resume fields
-      const analysisJson: AnalysisResult = {
-        atsScore: resumeData.atsScore,
-        missingKeywords: typeof resumeData.missingKeywords === "string"
-          ? JSON.parse(resumeData.missingKeywords || "[]")
-          : resumeData.missingKeywords || [],
-        skillGaps: typeof resumeData.skillGaps === "string"
-          ? JSON.parse(resumeData.skillGaps || "[]")
-          : resumeData.skillGaps || [],
-        suggestions: typeof resumeData.suggestions === "string"
-          ? JSON.parse(resumeData.suggestions || "[]")
-          : resumeData.suggestions || [],
-      };
+  const analysisJson: AnalysisResult = {
+    atsScore: resumeData.atsScore,
+    missingKeywords: typeof resumeData.missingKeywords === "string"
+      ? JSON.parse(resumeData.missingKeywords || "[]")
+      : resumeData.missingKeywords || [],
+    skillGaps: typeof resumeData.skillGaps === "string"
+      ? JSON.parse(resumeData.skillGaps || "[]")
+      : resumeData.skillGaps || [],
+    suggestions: typeof resumeData.suggestions === "string"
+      ? JSON.parse(resumeData.suggestions || "[]")
+      : resumeData.suggestions || [],
+};
 
-      if (!analysisJson.atsScore) {
-        throw new Error("This does not appear to be a resume. Please upload a valid resume PDF.");
-      }
+// Only reject if Gemini explicitly said it's not a resume
+if (resumeData.atsScore === 0 && 
+    resumeData.missingKeywords === '[]' && 
+    resumeData.skillGaps === '[]' && 
+    resumeData.suggestions === '[]') {
+    throw new Error("This does not appear to be a resume. Please upload a valid resume PDF.");
+}
+
+     if (analysisJson.atsScore === undefined || analysisJson.atsScore === null) {
+    throw new Error("Analysis failed. Please try again.");
+}
 
       setAnalysis(analysisJson);
       localStorage.setItem("resumeId", uploadedResume.id.toString());
