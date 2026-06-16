@@ -53,7 +53,7 @@ public class GeminiService {
 
         try {
             Map response = webClient.post()
-                    .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=" + apiKey)
+                   .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey)
                     .header("Content-Type", "application/json")
                     .bodyValue(requestBody)
                     .retrieve()
@@ -105,7 +105,7 @@ public class GeminiService {
 
         try {
             Map response = webClient.post()
-                    .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=" + apiKey)
+                    .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey)  
                     .header("Content-Type", "application/json")
                     .bodyValue(requestBody)
                     .retrieve()
@@ -164,7 +164,7 @@ public class GeminiService {
 
         try {
             Map response = webClient.post()
-                    .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=" + apiKey)
+                    .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey)
                     .header("Content-Type", "application/json")
                     .bodyValue(requestBody)
                     .retrieve()
