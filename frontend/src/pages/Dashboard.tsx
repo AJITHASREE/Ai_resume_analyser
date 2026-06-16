@@ -111,13 +111,7 @@ const analysisJson: AnalysisResult = {
   suggestions: safeParse(resumeData.suggestions),
 };
 
-// Only reject if Gemini explicitly said it's not a resume
-if (resumeData.atsScore === 0 && 
-    resumeData.missingKeywords === '[]' && 
-    resumeData.skillGaps === '[]' && 
-    resumeData.suggestions === '[]') {
-    throw new Error("This does not appear to be a resume. Please upload a valid resume PDF.");
-}
+
 
      if (analysisJson.atsScore === undefined || analysisJson.atsScore === null) {
     throw new Error("Analysis failed. Please try again.");
