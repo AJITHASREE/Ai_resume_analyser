@@ -28,32 +28,89 @@ public class Resume {
     @Column(columnDefinition = "TEXT")
     private String suggestions;
 
+    // NEW FIELD - Stores interview questions JSON
+    @Column(columnDefinition = "LONGTEXT")
+    private String interviewQuestions;
+
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
-    public String getUserEmail() { return userEmail; }
-    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getFilename() { return filename; }
-    public void setFilename(String filename) { this.filename = filename; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public LocalDateTime getUploadTime() { return uploadTime; }
-    public void setUploadTime(LocalDateTime uploadTime) { this.uploadTime = uploadTime; }
+    public String getUserEmail() {
+        return userEmail;
+    }
 
-    public Integer getAtsScore() { return atsScore; }
-    public void setAtsScore(Integer atsScore) { this.atsScore = atsScore; }
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
-    public String getExtractedText() { return extractedText; }
-    public void setExtractedText(String extractedText) { this.extractedText = extractedText; }
+    public String getFilename() {
+        return filename;
+    }
 
-    // ✅ New fields
-    public String getMissingKeywords() { return missingKeywords; }
-    public void setMissingKeywords(String missingKeywords) { this.missingKeywords = missingKeywords; }
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
-    public String getSkillGaps() { return skillGaps; }
-    public void setSkillGaps(String skillGaps) { this.skillGaps = skillGaps; }
+    public LocalDateTime getUploadTime() {
+        return uploadTime;
+    }
 
-    public String getSuggestions() { return suggestions; }
-    public void setSuggestions(String suggestions) { this.suggestions = suggestions; }
+    public void setUploadTime(LocalDateTime uploadTime) {
+        this.uploadTime = uploadTime;
+    }
+
+    public Integer getAtsScore() {
+        return atsScore;
+    }
+
+    public void setAtsScore(Integer atsScore) {
+        this.atsScore = atsScore;
+    }
+
+    public String getExtractedText() {
+        return extractedText;
+    }
+
+    public void setExtractedText(String extractedText) {
+        this.extractedText = extractedText;
+    }
+
+    public String getMissingKeywords() {
+        return missingKeywords;
+    }
+
+    public void setMissingKeywords(String missingKeywords) {
+        this.missingKeywords = missingKeywords;
+    }
+
+    public String getSkillGaps() {
+        return skillGaps;
+    }
+
+    public void setSkillGaps(String skillGaps) {
+        this.skillGaps = skillGaps;
+    }
+
+    public String getSuggestions() {
+        return suggestions;
+    }
+
+    public void setSuggestions(String suggestions) {
+        this.suggestions = suggestions;
+    }
+
+    public String getInterviewQuestions() {
+        return interviewQuestions;
+    }
+
+    public void setInterviewQuestions(String interviewQuestions) {
+        this.interviewQuestions = interviewQuestions;
+    }
 }
